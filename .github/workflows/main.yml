@@ -34,8 +34,18 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Run Code Generation (Build Runner)
+      - name: Run Code Generation
         run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Generate Temporary Signing Keystore
+        run: |
+          keytool -genkey -v -keystore android/upload-keystore.jks -storepass 123456 -alias upload -keypass 123456 -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Test,O=Test,C=US"
+          cat <<EOF > android/key.properties
+          storePassword=123456
+          keyPassword=123456
+          keyAlias=upload
+          storeFile=../upload-keystore.jks
+          EOF
 
       - name: Build Release APK
         run: flutter build apk --release
