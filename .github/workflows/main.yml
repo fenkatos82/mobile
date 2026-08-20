@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive # Lichess chess engines submodules ke sath aate hain
+          submodules: recursive
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -28,7 +28,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          flutter-version: '3.47.0'
           cache: true
 
       - name: Install Dependencies
